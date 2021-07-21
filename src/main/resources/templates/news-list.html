@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Users</title>
+</head>
+<body>
+<div th:switch="${news}">
+  <h2 th:case="null">No news found!</h2>
+  <div th:case="*">
+    <h2>News</h2>
+    <table>
+      <thead>
+      <tr>
+        <th>Id</th>
+        <th>Author</th>
+        <th>Headline</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="elem : ${news}">
+        <td th:text="${elem.id}"></td>
+        <td th:text="${elem.author}"></td>
+        <td th:text="${elem.headline}"></td>
+        <td><a th:href="@{edit-news/{id}(id=${elem.id})}">Edit</a></td>
+        <td><form th:action="@{/{id}/delete(id=${elem.id})}" method="post">
+          <input type="submit" value="Delete" />
+        </form>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <p><a href="/news-create">Create News</a></p>
+ </div>
+</body>
+</html>

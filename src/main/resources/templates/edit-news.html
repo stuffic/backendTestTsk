@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8">
+<title>Edit news</title>
+</head>
+<body>
+<form action="#" th:action="@{/edit-news}" th:object="${news}" method="post">
+    <label for="id">ID</label>
+    <input readonly type="number" th:field="*{id}" id="id" placeholder="ID">
+    <br/>
+    <label for="author">First name</label>
+    <input type="text" th:field="*{author}" id="author" placeholder="Author">
+    <br/>
+    <label for="headline">Last name</label>
+    <input type="text" th:field="*{headline}" id="headline" placeholder="Headline">
+    <br/>
+    <input type="submit" value="Edit News">
+</form>
+</body>
+</html>

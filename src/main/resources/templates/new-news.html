@@ -1,0 +1,18 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create news</title>
+</head>
+<body>
+<form action="#" th:action="@{/news-create}" th:object="${news}" method="post">
+    <label for="author">First name</label>
+    <input type="text" th:field="*{author}" id="author" placeholder="Author">
+    <label for="headline">Last name</label>
+    <input type="text" th:field="*{headline}" id="headline" placeholder="Headline">
+    <input type="submit" value="Create News!">
+</form>
+</body>
+</html>
