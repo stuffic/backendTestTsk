@@ -4,20 +4,20 @@
 
 Минимальный набор сервисов:
 
-GET -> /news
+GET -> /news + 
 
-GET -> / news /{id}
+GET -> / news /{id} +
 
-POST -> / news
+POST -> / news + 
 
-DELETE -> / news /{id}
+DELETE -> / news /{id} + 
 
 ///Добавила еще редактирование новостей
 
 ///Так как был использован spring boot thymeleaf, не получилось сделать удаление через DELETE.
 
-В качестве базы данных использовать H2 Database.
+В качестве базы данных использовать H2 Database. + 
 
-Выложить проект на GitHub.
+Выложить проект на GitHub. + 
 
-Бонус: Прикрутить Swagger.
+Бонус: Прикрутить Swagger. +
