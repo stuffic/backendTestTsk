@@ -19,3 +19,6 @@ DELETE -> / news /{id} +
 Выложить проект на GitHub. + 
 
 Бонус: Прикрутить Swagger. +
+
+
+![swagger](https://user-images.githubusercontent.com/58635452/126966613-a26f8085-be68-4713-8b40-9ea0c21e745e.jpg)
