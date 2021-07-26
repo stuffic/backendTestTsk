@@ -10,7 +10,7 @@ GET -> / news /{id} +
 
 POST -> / news + 
 
-PUT-> / news / {id}
+PUT-> / news / {id} +
 
 DELETE -> / news /{id} + 
 
