@@ -1,71 +1,61 @@
 package com.testexample.demo2.controller;
 
 import com.testexample.demo2.model.News;
+import com.testexample.demo2.repo.NewsRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import com.testexample.demo2.service.NewsService;
-
+/*import com.testexample.demo2.service.NewsService;*/
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
+import javax.validation.Valid;
 
-@Controller
+
+@RestController
 public class NewsController {
 
-    private  NewsService service;
-
     @Autowired
-    public NewsController(NewsService service) {
-        this.service = service;
-    }
+    private NewsRepo newsRepo;
 
     @GetMapping("/news")
-    public String findAll(Model model){
-        List<News> news = service.findAll();
-        model.addAttribute("news", news);
-        return "news-list";
+        public List <News> getAllNews(){
+            return newsRepo.findAll();
     }
 
     @GetMapping("/news/{id}")
-    public String findById(@PathVariable("id") Long id, Model model){
-        News news = service.findById(id)
-            .orElseThrow(() ->  {return new IllegalArgumentException("Invalid news Id:" + id);});
-        model.addAttribute("news", news);
-        return "news-list";
+    public ResponseEntity <News> getNewsById(@PathVariable(value = "id") Long id) {
+        News news = newsRepo.findById(id)
+                .orElseThrow(() -> {
+                    return new IllegalArgumentException("Invalid news Id:" + id);
+                });
+        return ResponseEntity.ok().body(news);
     }
 
-    @GetMapping("/edit-news/{id}")
-    public String editNewsForm(@PathVariable("id") Long id, Model model){
-        News news = service.findById(id)
-            .orElseThrow(() -> {return new IllegalArgumentException("Invalid news Id:" + id);});
-        model.addAttribute("news", news);
-        return "edit-news";
+    @PostMapping("/news")
+    public News createNews(@Valid @RequestBody News news) {
+        return newsRepo.save(news);
     }
 
-    @PostMapping("/edit-news")
-    public String editNews(News news){
-        service.save(news);
-        return "redirect:/news";
-    }
-
-    @PostMapping ("/{id}/delete")
-    public String deleteNews(@PathVariable Long id, Model model) {
-        service.findById(id)
+    @DeleteMapping("/news/{id}")
+    public List <News> deleteNews(@PathVariable Long id, Model model) {
+        newsRepo.findById(id)
                 .orElseThrow(() -> {return new IllegalArgumentException("Invalid news Id:" + id);});
-        service.deleteById(id);
-        model.addAttribute("news", service.findAll());
-        return "redirect:/news";
+        newsRepo.deleteById(id);
+        return newsRepo.findAll();
     }
 
-    @GetMapping("/news-create")
-    public String createNewsForm(News news){
-        return "new-news";
+    @PutMapping("/news/{id}")
+    public ResponseEntity <News> updateNews(@PathVariable(value = "id") Long id, @Valid @RequestBody News newNews) {
+        News news = newsRepo.findById(id)
+                .orElseThrow(() -> {return new IllegalArgumentException("Invalid news Id:" + id);});
+        news.setAuthor(newNews.getAuthor());
+        news.setHeadline(newNews.getHeadline());
+        news.setDescription(newNews.getDescription());
+        final News updatedNews = newsRepo.save(news);
+        return ResponseEntity.ok(updatedNews);
     }
 
-    @PostMapping("/news-create")
-    public String createNews(News news){
-        service.save(news);
-        return "redirect:/news";
-    }
 }

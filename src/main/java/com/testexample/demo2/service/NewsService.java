@@ -1,4 +1,4 @@
-package com.testexample.demo2.service;
+/*package com.testexample.demo2.service;
 
 import com.testexample.demo2.model.News;
 import com.testexample.demo2.repo.NewsRepo;
@@ -36,4 +36,4 @@ public class NewsService {
     public void deleteById(Long id){
         newsRepo.deleteById(id);
     }
-}
+}*/

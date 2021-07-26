@@ -8,9 +8,9 @@
 </head>
 <body>
 <form action="#" th:action="@{/news-create}" th:object="${news}" method="post">
-    <label for="author">First name</label>
+    <label for="author">Author</label>
     <input type="text" th:field="*{author}" id="author" placeholder="Author">
-    <label for="headline">Last name</label>
+    <label for="headline">Headline</label>
     <input type="text" th:field="*{headline}" id="headline" placeholder="Headline">
     <input type="submit" value="Create News!">
 </form>
