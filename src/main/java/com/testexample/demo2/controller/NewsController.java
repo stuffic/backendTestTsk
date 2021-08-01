@@ -13,18 +13,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.util.List;
 import javax.validation.Valid;
 
-
+@CrossOrigin("*")
 @RestController
 public class NewsController {
 
     @Autowired
     private NewsRepo newsRepo;
 
+
+    @CrossOrigin
     @GetMapping("/news")
         public List <News> getAllNews(){
             return newsRepo.findAll();
     }
 
+    @CrossOrigin
     @GetMapping("/news/{id}")
     public ResponseEntity <News> getNewsById(@PathVariable(value = "id") Long id) {
         News news = newsRepo.findById(id)
@@ -56,6 +59,11 @@ public class NewsController {
         news.setDescription(newNews.getDescription());
         final News updatedNews = newsRepo.save(news);
         return ResponseEntity.ok(updatedNews);
+    }
+
+    @GetMapping("/instructors/{username}/news")
+    public List<News> getAllCNews(@PathVariable String username) {
+        return newsRepo.findAll();
     }
 
 }
